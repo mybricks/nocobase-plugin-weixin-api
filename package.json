@@ -1,0 +1,22 @@
+{
+  "name": "@mybricks/weixin-api",
+  "displayName": "@MyBricks/Weixin API",
+  "displayName.zh-CN": "@MyBricks/微信 API",
+  "description": "Provides interfaces related to Weixin, such as mini-program login.",
+  "description.zh-CN": "提供微信相关的接口，例如微信小程序登录。",
+  "version": "1.0.0",
+  "main": "dist/server/index.js",
+  "homepage": "https://docs.mybricks.world/docs/miniprogram/common-scenarios/connect-nocobase",
+  "homepage.zh-CN": "https://docs.mybricks.world/docs/miniprogram/common-scenarios/connect-nocobase",
+  "license": "AGPL-3.0",
+  "dependencies": {},
+  "peerDependencies": {
+    "@nocobase/client": "1.x",
+    "@nocobase/plugin-auth": "1.x",
+    "@nocobase/server": "1.x",
+    "@nocobase/test": "1.x"
+  },
+  "keywords": [
+    "Authentication"
+  ]
+}
