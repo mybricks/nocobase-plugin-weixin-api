@@ -24,6 +24,7 @@ export class WeixinApiClient extends Plugin {
     const auth = this.app.pm.get(AuthPlugin);
     // @ts-ignore
     auth.registerType(authType, {
+      // @ts-ignore
       options: {},
     });
   }
