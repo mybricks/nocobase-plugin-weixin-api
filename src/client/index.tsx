@@ -23,7 +23,9 @@ export class WeixinApiClient extends Plugin {
     // 注册微信登录类型
     const auth = this.app.pm.get(AuthPlugin);
     // @ts-ignore
-    auth.registerType(authType);
+    auth.registerType(authType, {
+      options: {},
+    });
   }
 }
 
