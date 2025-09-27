@@ -84,9 +84,22 @@ class WeixinAuth extends import_auth.BaseAuth {
       }
       try {
         const authenticator = this.authenticator;
-        user = await authenticator.findOrCreateUser(weixinUserInfo.openid, {
-          nickname: `\u5FAE\u4FE1\u7528\u6237-${weixinUserInfo.openid}`
-        });
+        user = await authenticator.findUser(weixinUserInfo.openid);
+        if (!user) {
+          user = await authenticator.newUser(weixinUserInfo.openid, {
+            nickname: `\u5FAE\u4FE1\u7528\u6237-${weixinUserInfo.openid}`
+          });
+          const db = this.ctx.db;
+          await db.getRepository("usersAuthenticators").update({
+            filter: {
+              authenticator: authenticator.name,
+              userId: user.id
+            },
+            values: {
+              meta: weixinUserInfo
+            }
+          });
+        }
         if (!user) {
           throw new Error("\u7528\u6237\u521B\u5EFA\u5931\u8D25");
         }

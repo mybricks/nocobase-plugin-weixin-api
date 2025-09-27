@@ -60,9 +60,26 @@ export class WeixinAuth extends BaseAuth {
       try {
         const authenticator = this.authenticator as AuthModel;
 
-        user = await authenticator.findOrCreateUser(weixinUserInfo.openid, {
-          nickname: `微信用户-${weixinUserInfo.openid}`,
-        });
+        // 查找或创建用户
+        user = await authenticator.findUser(weixinUserInfo.openid);
+        if (!user) {
+          // 创建新用户
+          user = await authenticator.newUser(weixinUserInfo.openid, {
+            nickname: `微信用户-${weixinUserInfo.openid}`,
+          });
+          
+          // 只在首次创建时记录 meta 信息
+          const db = this.ctx.db;
+          await db.getRepository('usersAuthenticators').update({
+            filter: {
+              authenticator: authenticator.name,
+              userId: user.id,
+            },
+            values: {
+              meta: weixinUserInfo,
+            },
+          });
+        }
 
         if (!user) {
           throw new Error('用户创建失败');

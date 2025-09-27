@@ -1,2 +1,2 @@
-declare const _default: import("@nocobase/database").CollectionOptions;
+declare const _default: import("../../../../../../core/database/lib").CollectionOptions;
 export default _default;
